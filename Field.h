@@ -2,15 +2,6 @@
 #include "constans.h"
 #include "Obj.h"
 
-//=================================================
-//                                          XYnet 
-
-struct XYnet{
-  
-  Obj matrix[GRID_SIZE_Y][GRID_SIZE_X] = { nullptr } 
-}
-
-
 
 //=================================================
 //                                           Field
@@ -19,17 +10,22 @@ struct XYnet{
 class Field {
  private:
 
-  Field() {}
-    
+  Obj* matrix[GRID_SIZE_Y][GRID_SIZE_X] = { nullptr } XYnet;
+
+  bool isin(int x, int y) const {};
+
+
+  Field() {};
   Field(const Field&) = delete;
   Field& operator=(const Field&) = delete;
 
  public:
-  static Field& get_instance() {
-    static Field instance;
-    return instance;
-  }
 
+  static Field& get_instance() {};
+
+  void placeObject(int x, int y, Obj* obj) {};
+
+  Obj* get_Obj(int x, int y) const {};
 };
 
 #define FIELD Field::get_instance()
