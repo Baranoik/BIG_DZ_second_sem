@@ -27,6 +27,8 @@ class Field {
 
   Obj* get_Obj(int x, int y) const;
 
+  void rm_Obj(int x, int y);
+
   void print_field() const; 
 };
 

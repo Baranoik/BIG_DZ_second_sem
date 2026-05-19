@@ -14,7 +14,15 @@
 //----------------------------------------------
 #define PLAYER_BASE_HP 10
 #define PLAYER_BASE_WEAPON_PERFORMANS 11
-#define PLAYER_LEVEL_UP_DIFICULTY_MULTYPLAER 3
+#define LEVEL_UP_DIFICULTY 1
+
+//----------------------------------------------
+// Индексы вектора оружия
+#define W_SIZE 4  
+#define W_DAMAGE 0
+#define W_POISONED 1
+#define W_FROZEN 2
+#define W_BURNING 3
 
 //----------------------------------------------
 // Идентификаторы стихий (для инициализации перечислений)

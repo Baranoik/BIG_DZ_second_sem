@@ -1,0 +1,61 @@
+
+=== Test 0.1b ===
+
+[Log]:: Obj() : 0x7ffeb32081c0
+[Log]:: Obj() : 0x7ffeb32081d0
+[Log]:: Obj() : 0x7ffeb32081e0
+[Log]:: Obj() : 0x7ffeb32081f0
+[Log]:: Obj() : 0x7ffeb3208200
+
+   obj -> Field
+
+[Log]:: set_Obj : 0x7ffeb32081c0 on {2;0}
+[Log]:: set_Obj : 0x7ffeb32081d0 on {0;1}
+[Log]:: set_Obj : 0x7ffeb32081e0 on {1;1}
+[Log]:: set_Obj : 0x7ffeb32081f0 on {1;2}
+[Log]:: set_Obj : {1;2} alredy occupaed
+
+   get_Obj
+
+[Log]:: get_Obj : 0x7ffeb32081e0
+[Log]:: get_Obj : no Obj
+
+[emp]	[ 0 ]	[emp]	
+[emp]	[ 0 ]	[ 0 ]	
+[ 0 ]	[emp]	[emp]	
+
+
+   Error test
+ERROR :: set_Obj : {9;9} is not in {3;3}
+terminate called without an active exception
+make: *** [Makefile:41: T01b] Аварийный останов (сделан дамп памяти)
+
+
+
+===  0.2 test  ===
+[Log]:: Obj() : 0x7ffe2924f570
+[Log]:: Plaer() : lv1| hp10| damage 11
+[Log]:: Obj() : 0x7ffe2924f550
+[Log]:: Obj() : 0x7ffe2924f560
+
+   preporition
+[Log]:: set_Obj : 0x7ffe2924f570 on {0;0}
+[Log]:: set_Obj : 0x7ffe2924f550 on {1;1}
+[Log]:: set_Obj : 0x7ffe2924f560 on {2;2}
+
+ ---print  text---
+
+[ 5 ]	[emp]	[emp]	
+[emp]	[ 0 ]	[emp]	
+[emp]	[emp]	[ 0 ]	
+
+
+ set to seted test
+[Log]:: set_Obj : {0;0} alredy occupaed
+[Log]:: set_Obj : {1;1} alredy occupaed
+
+--- lv up test ---
+[Log]:: add_score() : +150
+[Log]:: ~Obj : 0x7ffe2924f560
+[Log]:: ~Obj : 0x7ffe2924f550
+[Log]:: ~Obj : 0x7ffe2924f570

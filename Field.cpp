@@ -2,9 +2,9 @@
 #include "Log_config.h"
 
 Field::Field() {
-  for (int y = 0; y < GRID_SIZE_Y; ++y) {
-    for (int x = 0; x < GRID_SIZE_X; ++x) {
-      XYnet[y][x] = nullptr;
+  for (int x = 0; x < GRID_SIZE_X; ++x) {
+    for (int y = 0; y < GRID_SIZE_Y; ++y) {
+      XYnet[x][y] = nullptr;
     }
   }
 }
@@ -23,11 +23,11 @@ void Field::set_Obj(int x, int y, Obj* obj) {
     ERROR("set_Obj : {"<< x <<";"<< y <<"} is not in {"<<GRID_SIZE_X<<";"<<GRID_SIZE_Y<<"}"); 
     return;
   }
-  if (XYnet[y][x] != nullptr) {
+  if (XYnet[x][y] != nullptr) {
     LOG("set_Obj : {"<<x<<";"<<y<< "} alredy occupaed");
     return;
   }
-  XYnet[y][x] = obj;
+  XYnet[x][y] = obj;
   LOG("set_Obj : "<<obj<<" on {"<<x<<";"<<y<<"}");
 }
 
@@ -40,14 +40,30 @@ Obj* Field::get_Obj(int x, int y) const {
   return XYnet[y][x];
 }
 
+void Field::rm_Obj(int x, int y) {
+  if (!isin(x, y)) {
+    LOG("remove_Obj() : position out of bounds");
+    return;
+  }
+
+  Obj* target = XYnet[y][x];
+  if (target == nullptr) {
+    LOG("remove_Obj : nothing to remove on {" << x << ";" << y << "}");
+    return;
+  }
+
+  XYnet[y][x] = nullptr;
+  LOG("remove_Obj : deleting object on {" << x << ";" << y << "}");
+  delete target; 
+}
 void Field::print_field() const {
   std::cout << "\n"; // Отступ перед полем
-  for (int y = 0; y < GRID_SIZE_Y; ++y) {
-    for (int x = 0; x < GRID_SIZE_X; ++x) {
-      if (XYnet[y][x] == nullptr) {
+  for (int x = 0; x < GRID_SIZE_X; ++x) {
+    for (int y = 0; y < GRID_SIZE_Y; ++y) {
+      if (XYnet[x][y] == nullptr) {
         std::cout << "[emp]\t"; // Если клетка пустая
       } else {
-        std::cout << "[obj]\t"; // Если в клетке есть объект
+        std::cout << "[ "<<int(XYnet[x][y]->get_type())<<" ]\t"; // Если в клетке есть объект
       }
     }
     std::cout << "\n"; // Перенос строки в конце каждого ряда

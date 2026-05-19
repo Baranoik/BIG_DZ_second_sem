@@ -6,20 +6,24 @@
 #include "constans.h"
 
 enum class OBJ_TYPE{
+  OBJ,
   ENTITY,
   TRAP,
   CHEST,
   REVARD,
+  PLAYER
 };
 
 class Obj{
- private:
-  OBJ_TYPE type ;
+
+ protected:
   int curent_performas;
+  bool virtual isdead();
+
  public:
-  virtual void interact(){}
   Obj();
-  ~Obj();
+  virtual ~Obj();
+  virtual OBJ_TYPE get_type() const; 
 };
 
 
