@@ -36,8 +36,8 @@ Obj* Field::get_Obj(int x, int y) const {
     LOG("get_Obj : no Obj");
     return nullptr;
   }
-  LOG("get_Obj : "<<XYnet[y][x]);
-  return XYnet[y][x];
+  LOG("get_Obj : "<<XYnet[x][y]);
+  return XYnet[x][y];
 }
 
 void Field::rm_Obj(int x, int y) {
@@ -46,7 +46,7 @@ void Field::rm_Obj(int x, int y) {
     return;
   }
 
-  Obj* target = XYnet[y][x];
+  Obj* target = XYnet[x][y];
   if (target == nullptr) {
     LOG("remove_Obj : nothing to remove on {" << x << ";" << y << "}");
     return;

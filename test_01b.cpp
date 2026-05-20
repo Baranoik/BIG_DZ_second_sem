@@ -23,13 +23,13 @@ int main() {
     FIELD.set_Obj(1, 1, &obj3); 
     FIELD.set_Obj(1, 2, &obj4);
     FIELD.set_Obj(1, 2, &obj5);
-                                
+    
+    FIELD.print_field();
 
     std::cout << "\n     get_Obj \n" << std::endl;
     FIELD.get_Obj(1, 1); // Успешное чтение (выведет лог с адресом)
     FIELD.get_Obj(5, 5); // Попытка чтения вне поля (выведет лог "no Obj")
 
-    FIELD.print_field();
 
     std::cout << "\n   Error test" << std::endl;
     

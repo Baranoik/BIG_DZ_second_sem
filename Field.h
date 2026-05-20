@@ -1,3 +1,6 @@
+#ifndef FIELD_H 
+#define FIELD_H
+
 #include <iostream>
 #include "constans.h"
 #include "Obj.h"
@@ -10,7 +13,7 @@
 class Field {
  private:
 
-  Obj* XYnet[GRID_SIZE_Y][GRID_SIZE_X];
+  Obj* XYnet[GRID_SIZE_X][GRID_SIZE_Y];
 
   bool isin(int x, int y) const;
 
@@ -33,3 +36,5 @@ class Field {
 };
 
 #define FIELD Field::get_instance()
+
+#endif //FIELD_H
