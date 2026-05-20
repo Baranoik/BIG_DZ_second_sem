@@ -87,3 +87,56 @@ make: *** [Makefile:41: T01b] Аварийный останов (сделан д
 [Log]:: ~Obj : 0x7ffc80cacd80
 [Log]:: ~Obj : 0x7ffc80cacd70
 [Log]:: ~Obj : 0x7ffc80cacd90
+
+
+
+=== test_02b (effect test) ===
+[Log]:: Obj() : 0x55f571781430
+[Log]:: StatusEffect() : [Fire] | duration 3 | dps 1
+[Log]:: StatusEffect() : [Poison] | duration 3 | dps 1
+
+--- Applying Effects ---
+[Log]:: apply_eff() : New effect applied. Type: 1 | Dur: 3
+[Log]:: apply_eff() : New effect applied. Type: 3 | Dur: 3
+[Log]:: StatusEffect() : [Fire] | duration 1 | dps 1
+[Log]:: apply_eff() : Effect extended. Dur: 3
+
+--- Simulating Turns ---
+
+[ Turn 1 ]
+[Log]:: get_eff_bar() : Effects list : 0x55f571781430
+[Log]:: 		[Fire] :3
+[Log]:: 		[Poison] :3
+Active Eff Bar content:
+  [Fire] :3
+  [Poison] :3
+[Log]:: tick_eff() : Takes status damage: 1 | Soundnes: -1
+[Log]:: tick_eff() : Takes status damage: 1 | Soundnes: -2
+
+[ Turn 2 ]
+[Log]:: get_eff_bar() : Effects list : 0x55f571781430
+[Log]:: 		[Fire] :2
+[Log]:: 		[Poison] :2
+Active Eff Bar content:
+  [Fire] :2
+  [Poison] :2
+[Log]:: tick_eff() : Takes status damage: 1 | Soundnes: -3
+[Log]:: tick_eff() : Takes status damage: 1 | Soundnes: -4
+
+[ Turn 3 ]
+[Log]:: get_eff_bar() : Effects list : 0x55f571781430
+[Log]:: 		[Fire] :1
+[Log]:: 		[Poison] :1
+Active Eff Bar content:
+  [Fire] :1
+  [Poison] :1
+[Log]:: tick_eff() : Takes status damage: 1 | Soundnes: -5
+[Log]:: tick_eff() : Effect expired. Type: 1
+[Log]:: tick_eff() : Takes status damage: 1 | Soundnes: -6
+[Log]:: tick_eff() : Effect expired. Type: 3
+
+[ Turn 4 ]
+[Log]:: get_eff_bar() : [No Effects]
+Active Eff Bar content:
+  [No Effects]
+[Log]:: ~Obj : 0x55f571781430

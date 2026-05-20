@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "constans.h"
+#include "element.h"
 
 enum class OBJ_TYPE{
   OBJ,
@@ -18,12 +19,18 @@ class Obj{
 
  protected:
   int soundnes;
-  bool virtual isdead();
+  std::vector<StatusEffect> eff_bar;
+
+  virtual bool isdead();
 
  public:
   Obj();
   virtual ~Obj();
-  virtual OBJ_TYPE get_type() const; 
+  virtual OBJ_TYPE get_type() const;
+
+  void apply_eff(const StatusEffect& eff); 
+  void tick_eff();
+  std::vector<std::string> get_eff_bar() const; 
 };
 
 
