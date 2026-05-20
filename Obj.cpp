@@ -1,7 +1,7 @@
 #include "Obj.h"
 #include "Log_config.h"
 
-Obj::Obj() : curent_performas(0) {
+Obj::Obj() : soundnes(0) {
   LOG("Obj() : "<<this);
 }
 Obj::~Obj() {
@@ -9,7 +9,7 @@ Obj::~Obj() {
 }
 
 bool Obj::isdead(){
-  return curent_performas<=0;
+  return soundnes<=0;
 }
 
 OBJ_TYPE Obj::get_type() const {

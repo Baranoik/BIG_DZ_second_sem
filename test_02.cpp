@@ -26,10 +26,10 @@ int main() {
     FIELD.set_Obj(0, 0, &obj2); 
     FIELD.set_Obj(1, 1, &player); 
 
-    std::cout << "\n--- lv up test ---" << std::endl;
+    std::cout << "\n\n--- lv up test ---" << std::endl;
     
     player.add_score(150);
-
-
+    std::cout<<std::endl;
+    player.lv_up();
     return 0;
 }

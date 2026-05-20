@@ -17,7 +17,7 @@ enum class OBJ_TYPE{
 class Obj{
 
  protected:
-  int curent_performas;
+  int soundnes;
   bool virtual isdead();
 
  public:

@@ -4,11 +4,11 @@
 
 Player::Player() 
     : Obj(), 
-      current_hp(curent_performas), // да я просто сделал болие логичным имя 
+      current_hp(soundnes), // да я просто сделал болие логичным имя 
       score(0) 
 {
     max_hp = PLAYER_BASE_HP;
-    curent_performas = PLAYER_BASE_HP;
+    soundnes = PLAYER_BASE_HP;
     level = 1;
 
     // Инициализируем стартовое оружие игрока [урон, яд, холод, огонь]

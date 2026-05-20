@@ -32,16 +32,19 @@ make: *** [Makefile:41: T01b] Аварийный останов (сделан д
 
 
 
+
+
+
 ===  0.2 test  ===
-[Log]:: Obj() : 0x7ffe2924f570
-[Log]:: Plaer() : lv1| hp10| damage 11
-[Log]:: Obj() : 0x7ffe2924f550
-[Log]:: Obj() : 0x7ffe2924f560
+[Log]:: Obj() : 0x7ffc80cacd90
+[Log]:: Plaer() : lv1| hp10| damage11
+[Log]:: Obj() : 0x7ffc80cacd70
+[Log]:: Obj() : 0x7ffc80cacd80
 
    preporition
-[Log]:: set_Obj : 0x7ffe2924f570 on {0;0}
-[Log]:: set_Obj : 0x7ffe2924f550 on {1;1}
-[Log]:: set_Obj : 0x7ffe2924f560 on {2;2}
+[Log]:: set_Obj : 0x7ffc80cacd90 on {0;0}
+[Log]:: set_Obj : 0x7ffc80cacd70 on {1;1}
+[Log]:: set_Obj : 0x7ffc80cacd80 on {2;2}
 
  ---print  text---
 
@@ -55,7 +58,32 @@ make: *** [Makefile:41: T01b] Аварийный останов (сделан д
 [Log]:: set_Obj : {1;1} alredy occupaed
 
 --- lv up test ---
+
 [Log]:: add_score() : +150
-[Log]:: ~Obj : 0x7ffe2924f560
-[Log]:: ~Obj : 0x7ffe2924f550
-[Log]:: ~Obj : 0x7ffe2924f570
+
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 2 | hp 11
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 3 | hp 12
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 4 | hp 13
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 5 | hp 14
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 6 | hp 15
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 7 | hp 16
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 8 | hp 17
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 9 | hp 18
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 10 | hp 19
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 11 | hp 20
+[Log]:: lv_up_qw() : 1
+[Log]:: lv_up() : lv 12 | hp 21
+[Log]:: lv_up_qw() : 0
+[Log]:: ~Obj : 0x7ffc80cacd80
+[Log]:: ~Obj : 0x7ffc80cacd70
+[Log]:: ~Obj : 0x7ffc80cacd90
