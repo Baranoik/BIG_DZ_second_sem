@@ -1,4 +1,4 @@
-#include "Obj_Fabric.h"
+#include "Obj_fabric.h"
 #include "Log_config.h"
 
 Obj_Fabric& Obj_Fabric::get_instance() {
@@ -43,9 +43,9 @@ Obj* Obj_Fabric::create_object(FABRIC_TYPE type) {
     }
 
     if (new_obj != nullptr) {
-        LOG("[Obj_Fabric] Pure instantiation of object type ID: " << int(type) << " | ptr: " << new_obj);
+        LOG("[Obj_Fabric] instantiation of object type : " << int(type) << " : " << new_obj);
     } else {
-        ERROR("[Obj_Fabric] Failed to pure instantiate object for type ID: " << int(type));
+        ERROR("[Obj_Fabric] Failed to instantiate object for type : " << int(type));
     }
 
     return new_obj;

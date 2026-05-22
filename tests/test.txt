@@ -140,3 +140,103 @@ Active Eff Bar content:
 Active Eff Bar content:
   [No Effects]
 [Log]:: ~Obj : 0x55f571781430
+
+
+
+
+
+=== test_03 (Obj_Fabric & Ecosystem Test) ===
+
+--- Step 1: Spawning Objects via Fabric ---
+[Log]:: Obj() : 0x55f392231430
+[Log]:: Chest() : Created new chest | soundnes 1 | 0x55f392231430
+[Log]:: [Obj_Fabric] instantiation of object type : 0 : 0x55f392231430
+[Log]:: Obj() : 0x55f392231460
+[Log]:: Reward() : Base reward object constructed | 0x55f392231460
+[Log]:: Coin() : Created coin reward | soundnes (gold): 11 | 0x55f392231460
+[Log]:: [Obj_Fabric] instantiation of object type : 1 : 0x55f392231460
+[Log]:: Obj() : 0x55f392231490
+[Log]:: Reward() : Base reward object constructed | 0x55f392231490
+[Log]:: StatusEffect(Auto) : [None] | duration 0 | auto-dps 0
+[Log]:: Weapon() : Created weapon | soundnes (damage): 12 | element type: 0 | eff dur: 0 | 0x55f392231490
+[Log]:: [Obj_Fabric] instantiation of object type : 4 : 0x55f392231490
+[Log]:: Obj() : 0x55f3922314d0
+[Log]:: Trap() : Base trap object constructed | 0x55f3922314d0
+[Log]:: Spikes() : Created spikes | soundnes (damage): 7 | active: 1 | 0x55f3922314d0
+[Log]:: [Obj_Fabric] instantiation of object type : 5 : 0x55f3922314d0
+[Log]:: Obj() : 0x55f392231510
+[Log]:: Enemy() : Base enemy object constructed | 0x55f392231510
+[Log]:: Skeleton() : Spawned | soundnes (HP): 11 | loot: [YES] | 0x55f392231510
+[Log]:: [Obj_Fabric] instantiation of object type : 7 : 0x55f392231510
+[Log]:: Obj() : 0x55f392231550
+[Log]:: Enemy() : Base enemy object constructed | 0x55f392231550
+[Log]:: SkeletonPotion() : Spawned | soundnes (HP): 6 | element: 1 | loot: [YES] | 0x55f392231550
+[Log]:: [Obj_Fabric] instantiation of object type : 9 : 0x55f392231550
+
+--- Step 2: Placing Objects on Field manually ---
+[Log]:: set_Obj : 0x55f392231430 on {0;0}
+[Log]:: set_Obj : 0x55f392231460 on {0;1}
+[Log]:: set_Obj : 0x55f392231490 on {0;2}
+[Log]:: set_Obj : 0x55f3922314d0 on {1;0}
+[Log]:: set_Obj : 0x55f392231510 on {1;1}
+[Log]:: set_Obj : 0x55f392231550 on {1;2}
+
+--- Current Field State ---
+
+[ 3 ]	[ 4 ]	[ 4 ]	
+[ 2 ]	[ 1 ]	[ 1 ]	
+[emp]	[emp]	[emp]	
+
+
+--- Step 3: Inspecting Randomly Generated Values ---
+[Test Log] Coin gold amount generated: 11
+[Test Log] Weapon damage: 12 | Element type ID: 0
+[Test Log] Spikes damage: 7 | Active now: YES
+
+--- Step 4: Simulating Turn with Obj_manager ---
+[Log]:: [Obj_manager] ---> Phase: Ticking Effects <---
+[Log]:: get_Obj : 0x55f392231430
+[Log]:: get_Obj : 0x55f392231460
+[Log]:: get_Obj : 0x55f392231490
+[Log]:: get_Obj : 0x55f3922314d0
+[Log]:: Trap::tick_eff() : Toggle activity status -> [INACTIVE] | 0x55f3922314d0
+[Log]:: get_Obj : 0x55f392231510
+[Log]:: get_Obj : 0x55f392231550
+[Log]:: get_Obj : 0
+[Log]:: get_Obj : 0
+[Log]:: get_Obj : 0
+[Test Log] Spikes active after 1 tick: NO
+
+--- Step 5: Cleaning up whole field ---
+[Log]:: [Obj_manager] Wiping field...
+[Log]:: get_Obj : 0x55f392231430
+[Log]:: remove_Obj : deleting object on {0;0}
+[Log]:: ~Chest() : Destroying chest object | 0x55f392231430
+[Log]:: ~Obj : 0x55f392231430
+[Log]:: get_Obj : 0x55f392231460
+[Log]:: remove_Obj : deleting object on {0;1}
+[Log]:: ~Obj : 0x55f392231460
+[Log]:: get_Obj : 0x55f392231490
+[Log]:: remove_Obj : deleting object on {0;2}
+[Log]:: ~Obj : 0x55f392231490
+[Log]:: get_Obj : 0x55f3922314d0
+[Log]:: remove_Obj : deleting object on {1;0}
+[Log]:: ~Obj : 0x55f3922314d0
+[Log]:: get_Obj : 0x55f392231510
+[Log]:: remove_Obj : deleting object on {1;1}
+[Log]:: ~Obj : 0x55f392231510
+[Log]:: get_Obj : 0x55f392231550
+[Log]:: remove_Obj : deleting object on {1;2}
+[Log]:: ~Obj : 0x55f392231550
+[Log]:: get_Obj : 0
+[Log]:: get_Obj : 0
+[Log]:: get_Obj : 0
+
+--- Field State After Wipe ---
+
+[emp]	[emp]	[emp]	
+[emp]	[emp]	[emp]	
+[emp]	[emp]	[emp]	
+
+
+=== Test 03 Finished Successfully ===

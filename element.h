@@ -18,12 +18,14 @@ struct StatusEffect {
   int duration;
   int damage;
 
-  StatusEffect(ELEMENT_TYPE t, int dur, int dps = 0){
+  // 1. Конструктор для ПОЛНОЙ ручной настройки (убрали = 0, теперь тут строго 3 параметра!)
+  StatusEffect(ELEMENT_TYPE t, int dur, int dps) {
     type = t; duration = dur; damage = dps;
-    LOG("StatusEffect() : "<< this->get_title()<<" | duration "<< dur<<" | dps "<<dps );
-  };
+    LOG("StatusEffect(Full) : " << this->get_title() << " | duration " << dur << " | dps " << dps);
+  }
 
-    StatusEffect(ELEMENT_TYPE t, int dur) {
+  // 2. Конструктор для АВТОМАТИЧЕСКОЙ настройки по типу (2 параметра)
+  StatusEffect(ELEMENT_TYPE t, int dur) {
     type = t;
     duration = dur;
     
@@ -35,17 +37,18 @@ struct StatusEffect {
         damage = BURN_DAMAGE;
         break;
       case ELEMENT_TYPE::REGENRATION:
-        damage = ELEMENT_REG;
+        damage = -1; // Лечение
         break;
       default:
-        damage = 0;
+        damage = 0;  // Лед или NONE не наносят урон напрямую
         break;
     }
-    LOG("StatusEffect(Auto) : " << this->get_title() << " | dur " << dur << " | auto-dps " << damage);
+    LOG("StatusEffect(Auto) : " << this->get_title() << " | duration " << dur << " | auto-dps " << damage);
   }
 
   std::string get_title() const {
     switch (type) {
+      case ELEMENT_TYPE::NONE:        return "[None]";
       case ELEMENT_TYPE::FIRE:        return "[Fire]";
       case ELEMENT_TYPE::ICE:         return "[Ice]";
       case ELEMENT_TYPE::POISON:      return "[Poison]";

@@ -21,13 +21,13 @@ class Obj{
   int soundnes;
   std::vector<StatusEffect> eff_bar;
 
-  virtual bool isdead();
-
- public:
+  
+  public:
   Obj();
   virtual ~Obj();
   virtual OBJ_TYPE get_type() const;
-
+  
+  virtual bool isdead();
   void apply_eff(const StatusEffect& eff); 
   virtual void tick_eff();
   std::vector<std::string> get_eff_bar() const; 

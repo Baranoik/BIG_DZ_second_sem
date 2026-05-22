@@ -5,7 +5,7 @@
 #include "Chest.h"
 #include "Reward.h"
 #include "Trap.h"
-#include "Enemy.h"
+#include "Entity.h"
 
 enum class FABRIC_TYPE {
     CHEST,

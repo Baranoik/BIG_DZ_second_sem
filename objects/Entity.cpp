@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "Entity.h"
 #include "Log_config.h"
 #include <random>
 
@@ -19,7 +19,7 @@ LootInfo Enemy::get_loot_info() const {
 
 int Enemy::get_attack_power() const {
     // Базовая логика: урон зависит от текущего soundnes моба (чем он слабее, тем меньше бьет)
-    return soundnes / 2 + 1;
+    return soundnes ;
 }
 
 //-------------------------------------------------
@@ -74,44 +74,44 @@ ENEMY_TYPE SkeletonSpearman::get_enemy_type() const {
 
 int SkeletonSpearman::get_attack_power() const {
     // Копейщик бьет сильнее обычного скелета
-    return (soundnes / 2) + 3;
+    return soundnes;
 }
 
 //-------------------------------------------------
 //                              Skeleton Potion Mobb
 //-------------------------------------------------
 SkeletonPotion::SkeletonPotion() : Enemy() {
-    std::random_device enemy_rd;
-    std::default_random_engine enemy_gen(enemy_rd());
+  std::random_device enemy_rd;
+  std::default_random_engine enemy_gen(enemy_rd());
     
-    // Скелет с зельем: хлипкий, но опасный из-за эффектов
-    std::uniform_int_distribution<int> hp_dist(6, 9);
-    soundnes = hp_dist(enemy_gen);
+  // Скелет с зельем: хлипкий, но опасный из-за эффектов
+  std::uniform_int_distribution<int> hp_dist(6, 9);
+  soundnes = hp_dist(enemy_gen);
 
-    // Выбираем случайный эффект для его атак (1 - огонь, 3 - яд)
-    std::uniform_int_distribution<int> element_dist(1, 2);
-    int roll = element_dist(enemy_gen);
+  // Выбираем случайный эффект для его атак (1 - огонь, 3 - яд)
+  std::uniform_int_distribution<int> element_dist(1, 2);
+  int roll = element_dist(enemy_gen);
     
-    switch (roll) {
-        case 1:  potion_element = ELEMENT_TYPE::FIRE; break;
-        default: potion_element = ELEMENT_TYPE::POISON; break;
-    }
+  switch (roll) {
+    case 1:  potion_element = ELEMENT_TYPE::FIRE; break;
+    default: potion_element = ELEMENT_TYPE::POISON; break;
+  }
 
-    // Настройка лута: 60% шанс выронить награду (обычно зелье)
-    std::uniform_int_distribution<int> chance_dist(1, 100);
-    if (chance_dist(enemy_gen) <= 60) {
-        drop_loot = {true, OBJ_TYPE::REVARD};
-    }
+ // Настройка лута: 60% шанс выронить награду (обычно зелье)
+ std::uniform_int_distribution<int> chance_dist(1, 100);
+  if (chance_dist(enemy_gen) <= 60) {
+    drop_loot = {true, OBJ_TYPE::REVARD};
+  }
 
-    LOG("SkeletonPotion() : Spawned | soundnes (HP): " << soundnes 
-        << " | element: " << int(potion_element) 
-        << " | loot: " << (drop_loot.has_loot ? "[YES]" : "[NO]") << " | " << this);
+  LOG("SkeletonPotion() : Spawned | soundnes (HP): " << soundnes 
+    << " | element: " << int(potion_element) 
+    << " | loot: " << (drop_loot.has_loot ? "[YES]" : "[NO]") << " | " << this);
 }
 
 ENEMY_TYPE SkeletonPotion::get_enemy_type() const {
-    return ENEMY_TYPE::SKELETON_POTION;
+  return ENEMY_TYPE::SKELETON_POTION;
 }
 
 StatusEffect SkeletonPotion::get_attack_effect() const {
-    return StatusEffect(potion_element, 2);
+  return StatusEffect(potion_element, 2);
 }
