@@ -17,10 +17,33 @@ struct StatusEffect {
   ELEMENT_TYPE type;
   int duration;
   int damage;
+
   StatusEffect(ELEMENT_TYPE t, int dur, int dps = 0){
     type = t; duration = dur; damage = dps;
     LOG("StatusEffect() : "<< this->get_title()<<" | duration "<< dur<<" | dps "<<dps );
   };
+
+    StatusEffect(ELEMENT_TYPE t, int dur) {
+    type = t;
+    duration = dur;
+    
+    switch (t) {
+      case ELEMENT_TYPE::POISON:
+        damage = POISON_DAMAGE;
+        break;
+      case ELEMENT_TYPE::FIRE:
+        damage = BURN_DAMAGE;
+        break;
+      case ELEMENT_TYPE::REGENRATION:
+        damage = ELEMENT_REG;
+        break;
+      default:
+        damage = 0;
+        break;
+    }
+    LOG("StatusEffect(Auto) : " << this->get_title() << " | dur " << dur << " | auto-dps " << damage);
+  }
+
   std::string get_title() const {
     switch (type) {
       case ELEMENT_TYPE::FIRE:        return "[Fire]";

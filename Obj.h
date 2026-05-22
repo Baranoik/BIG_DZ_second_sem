@@ -29,7 +29,7 @@ class Obj{
   virtual OBJ_TYPE get_type() const;
 
   void apply_eff(const StatusEffect& eff); 
-  void tick_eff();
+  virtual void tick_eff();
   std::vector<std::string> get_eff_bar() const; 
 };
 

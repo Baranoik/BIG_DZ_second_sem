@@ -31,7 +31,7 @@
 #define ELEMENT_FIRE    1
 #define ELEMENT_ICE     2
 #define ELEMENT_POISON  3
-#define ELEMENT_REG     4
+#define ELEMENT_REG     -4
 
 //----------------------------------------------
 // Длительности и урон статусных эффектов
@@ -41,6 +41,12 @@
 #define FROZEN_DURATION 2
 #define POISON_DURATION 3
 #define POISON_DAMAGE   1
+
+//----------------------------------------------
+// 
+//----------------------------------------------
+
+#define CHEST_BASE_HP 1
 
 
 #endif //CONSTANS_H

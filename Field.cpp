@@ -52,7 +52,7 @@ void Field::rm_Obj(int x, int y) {
     return;
   }
 
-  XYnet[y][x] = nullptr;
+  XYnet[x][y] = nullptr;
   LOG("remove_Obj : deleting object on {" << x << ";" << y << "}");
   delete target; 
 }
