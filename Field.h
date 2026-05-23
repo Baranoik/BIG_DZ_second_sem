@@ -32,6 +32,8 @@ class Field {
 
   void rm_Obj(int x, int y);
 
+  void move_Obj(int from_x, int from_y, int to_x, int to_y);
+
   void print_field() const; 
 };
 

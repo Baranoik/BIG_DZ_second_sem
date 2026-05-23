@@ -20,23 +20,23 @@ Field& Field::get_instance() {
     
 void Field::set_Obj(int x, int y, Obj* obj) {
   if (!isin(x, y)){
-    ERROR("set_Obj : {"<< x <<";"<< y <<"} is not in {"<<GRID_SIZE_X<<";"<<GRID_SIZE_Y<<"}"); 
+    ERROR("set_Obj() : {"<< x <<";"<< y <<"} is not in {"<<GRID_SIZE_X<<";"<<GRID_SIZE_Y<<"}"); 
     return;
   }
   if (XYnet[x][y] != nullptr) {
-    LOG("set_Obj : {"<<x<<";"<<y<< "} alredy occupaed");
+    LOG("set_Obj() : {"<<x<<";"<<y<< "} alredy occupaed");
     return;
   }
   XYnet[x][y] = obj;
-  LOG("set_Obj : "<<obj<<" on {"<<x<<";"<<y<<"}");
+  LOG("set_Obj() : "<<obj<<" on {"<<x<<";"<<y<<"}");
 }
 
 Obj* Field::get_Obj(int x, int y) const {
   if (!isin(x, y)) {
-    LOG("get_Obj : no Obj");
+    LOG("get_Obj() : no Obj");
     return nullptr;
   }
-  LOG("get_Obj : "<<XYnet[x][y]);
+  LOG("get_Obj() : "<<XYnet[x][y]);
   return XYnet[x][y];
 }
 
@@ -48,14 +48,44 @@ void Field::rm_Obj(int x, int y) {
 
   Obj* target = XYnet[x][y];
   if (target == nullptr) {
-    LOG("remove_Obj : nothing to remove on {" << x << ";" << y << "}");
+    LOG("remove_Obj() : nothing to remove on {" << x << ";" << y << "}");
     return;
   }
 
   XYnet[x][y] = nullptr;
-  LOG("remove_Obj : deleting object on {" << x << ";" << y << "}");
+  LOG("remove_Obj() : deleting object on {" << x << ";" << y << "}");
   delete target; 
 }
+
+// В конец файла Field.cpp
+void Field::move_Obj(int from_x, int from_y, int to_x, int to_y) {
+  if (!isin(from_x, from_y)) {
+    ERROR("move_Obj() : Source coordinates {" << from_x << ";" << from_y << "} out of bounds!");
+    return;
+  }
+  if (!isin(to_x, to_y)) {
+    ERROR("move_Obj() : Destination coordinates {" << to_x << ";" << to_y << "} out of bounds!");
+    return;
+  }
+
+  Obj* moving_obj = XYnet[from_x][from_y];
+  if (moving_obj == nullptr) {
+    LOG("move_Obj() : No object found at source {" << from_x << ";" << from_y << "} to move.");
+    return;
+  }
+
+  if (XYnet[to_x][to_y] != nullptr) {
+    LOG("move_Obj() : Cannot move! Destination {" << to_x << ";" << to_y << "} is already occupied.");
+    return;
+  }
+
+  XYnet[to_x][to_y] = moving_obj;
+  XYnet[from_x][from_y] = nullptr;
+
+  LOG("move_Obj() : Object " << moving_obj << " successfully moved from {" 
+    << from_x << ";" << from_y << "} to {" << to_x << ";" << to_y << "}");
+}
+
 void Field::print_field() const {
   std::cout << "\n"; // Отступ перед полем
   for (int x = 0; x < GRID_SIZE_X; ++x) {
@@ -66,7 +96,7 @@ void Field::print_field() const {
         std::cout << "[ "<<int(XYnet[x][y]->get_type())<<" ]\t"; // Если в клетке есть объект
       }
     }
-    std::cout << "\n"; // Перенос строки в конце каждого ряда
+    std::cout << "\n";
   }
   std::cout << "\n";
 }
