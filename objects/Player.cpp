@@ -49,3 +49,21 @@ int Player::get_score() const { return score; }
 OBJ_TYPE Player::get_type() const {
   return OBJ_TYPE::PLAYER;
 }
+
+bool Player::has_weapon() const {
+    return weapon_performance[W_DAMAGE] > 0;
+}
+
+int Player::get_weapon_damage() const {
+    return weapon_performance[W_DAMAGE];
+}
+
+void Player::damage_weapon(int amount) {
+    weapon_performance[W_DAMAGE] -= amount;
+    if (weapon_performance[W_DAMAGE] < 0) {
+        weapon_performance[W_DAMAGE] = 0;
+    }
+    if (weapon_performance[W_DAMAGE] == 0) {
+        LOG("[Player] Weapon broke! Performance reached 0.");
+    }
+}

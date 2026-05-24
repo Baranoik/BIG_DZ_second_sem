@@ -87,16 +87,25 @@ void Field::move_Obj(int from_x, int from_y, int to_x, int to_y) {
 }
 
 void Field::print_field() const {
-  std::cout << "\n"; // Отступ перед полем
+  std::cout << "\n  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---";
+  std::cout << "\n"; 
   for (int x = 0; x < GRID_SIZE_X; ++x) {
     for (int y = 0; y < GRID_SIZE_Y; ++y) {
       if (XYnet[x][y] == nullptr) {
-        std::cout << "[emp]\t"; // Если клетка пустая
+        std::cout << "[ emp ]  "; 
       } else {
-        std::cout << "[ "<<int(XYnet[x][y]->get_type())<<" ]\t"; // Если в клетке есть объект
+        // Проверяем тип объекта и выводим красивый маркер
+        switch (XYnet[x][y]->get_type()) {
+          case OBJ_TYPE::PLAYER: std::cout << "[=PLR=]  "; break;
+          case OBJ_TYPE::CHEST:  std::cout << "[ CHS ]  "; break;
+          case OBJ_TYPE::TRAP:   std::cout << "[ TRP ]  "; break;
+          case OBJ_TYPE::REVARD: std::cout << "[ REW ]  "; break;
+          case OBJ_TYPE::ENTITY: std::cout << "[ ENM ]  "; break;
+          default:               std::cout << "[ ??? ]  "; break;
+        }
       }
     }
     std::cout << "\n";
   }
-  std::cout << "\n";
+  std::cout << "  -------------------------------\n\n";
 }

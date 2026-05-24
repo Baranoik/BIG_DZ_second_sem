@@ -1,4 +1,5 @@
-
+==============================================================================================================
+==============================================================================================================
 === Test 0.1b ===
 
 [Log]:: Obj() : 0x7ffeb32081c0
@@ -34,7 +35,8 @@ make: *** [Makefile:41: T01b] Аварийный останов (сделан д
 
 
 
-
+==============================================================================================================
+==============================================================================================================
 ===  0.2 test  ===
 [Log]:: Obj() : 0x7ffc80cacd90
 [Log]:: Plaer() : lv1| hp10| damage11
@@ -89,7 +91,8 @@ make: *** [Makefile:41: T01b] Аварийный останов (сделан д
 [Log]:: ~Obj : 0x7ffc80cacd90
 
 
-
+==============================================================================================================
+==============================================================================================================
 === test_02b (effect test) ===
 [Log]:: Obj() : 0x55f571781430
 [Log]:: StatusEffect() : [Fire] | duration 3 | dps 1
@@ -144,7 +147,8 @@ Active Eff Bar content:
 
 
 
-
+==============================================================================================================
+==============================================================================================================
 === test_03 (Obj_Fabric & Ecosystem Test) ===
 
 --- Step 1: Spawning Objects via Fabric ---
@@ -240,3 +244,251 @@ Active Eff Bar content:
 
 
 === Test 03 Finished Successfully ===
+
+
+
+
+
+==============================================================================================================
+==============================================================================================================
+=== Test 04: Pure Interaction System & Combat Test ===
+
+[Log]:: Obj() : 0x559a5593f430
+[Log]:: Player() : lv 1 | hp 10 | damage 11
+[Log]:: set_Obj() : 0x559a5593f430 on {1;1}
+
+--- Scenario 1: Combat WITH Weapon ---
+[Log]:: Obj() : 0x559a5593f480
+[Log]:: Enemy() : Base enemy object constructed | 0x559a5593f480
+[Log]:: Skeleton() : Spawned | soundnes (HP): 11 | loot: [REWARD] | 0x559a5593f480
+[Log]:: set_Obj() : 0x559a5593f480 on {0;1}
+Initial Weapon Perf: 11
+
+  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---
+[ emp ]  [ ENM ]  [ emp ]
+[ emp ]  [=PLR=]  [ emp ]
+[ emp ]  [ emp ]  [ emp ]
+  -------------------------------
+
+[Log]:: get_Obj() : 0x559a5593f480
+[Log]:: modify_soundness() : Delta: -5 | New soundness: 0 | 0x559a5593f480
+[Log]:: [Battle] Player attacks with weapon! Dealt: 5
+[Log]:: [Battle] Enemy killed by weapon.
+[Log]:: [Battle] Enemy drop destroyed (Spawn disabled by rules).
+[Log]:: remove_Obj() : deleting object on {0;1}
+[Log]:: ~Obj : 0x559a5593f480
+[Log]:: [Obj_manager] ---> Phase: Ticking Effects <---
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: [Obj_manager] ---> Phase: Cleaning Up Dead Objects <---
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+
+  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---
+[ emp ]  [ emp ]  [ emp ]
+[ emp ]  [=PLR=]  [ emp ]
+[ emp ]  [ emp ]  [ emp ]
+  -------------------------------
+
+
+Result Scenario 1:
+Weapon Perf after fight (expected 11 - 5 = 6): 6
+Player Position (expected to stay at {1;1} due to weapon combat rule):
+
+--- Scenario 2: Combat WITHOUT Weapon (Bare Hands) ---
+[Log]:: [Player] Weapon broke! Performance reached 0.
+Weapon Perf now: 0 (Hands Mode ACTIVE)
+[Log]:: Obj() : 0x559a5593f480
+[Log]:: Enemy() : Base enemy object constructed | 0x559a5593f480
+[Log]:: Skeleton() : Spawned | soundnes (HP): 12 | loot: [REWARD] | 0x559a5593f480
+[Log]:: set_Obj() : 0x559a5593f480 on {0;1}
+
+  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---
+[ emp ]  [ ENM ]  [ emp ]
+[ emp ]  [=PLR=]  [ emp ]
+[ emp ]  [ emp ]  [ emp ]
+  -------------------------------
+
+[Log]:: get_Obj() : 0x559a5593f480
+[Log]:: modify_soundness() : Delta: -4 | New soundness: 0 | 0x559a5593f480
+[Log]:: modify_soundness() : Delta: -4 | New soundness: 6 | 0x559a5593f430
+[Log]:: [Battle] Player attacks with bare hands! Mutual damage dealt: 4
+[Log]:: [Battle] Enemy killed by hands. No loot spawned.
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f480
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: remove_Obj() : deleting object on {0;1}
+[Log]:: ~Obj : 0x559a5593f480
+[Log]:: move_Obj() : Object 0x559a5593f430 successfully moved from {1;1} to {0;1}
+[Log]:: [Obj_manager] ---> Phase: Ticking Effects <---
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: [Obj_manager] ---> Phase: Cleaning Up Dead Objects <---
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+
+  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---
+[ emp ]  [=PLR=]  [ emp ]
+[ emp ]  [ emp ]  [ emp ]
+[ emp ]  [ emp ]  [ emp ]
+  -------------------------------
+
+
+Result Scenario 2:
+Player HP after fight (expected 10 - 4 = 6): 6
+Player Position (expected to step on {0;1} automatically, no loot):
+
+--- Scenario 3: Stepping on a Potion (Reward) ---
+[Log]:: Obj() : 0x559a5593f480
+[Log]:: Reward() : Base reward object constructed | 0x559a5593f480
+[Log]:: StatusEffect(Auto) : [Fire] | duration 1 | auto-dps 1
+[Log]:: StatusEffect(Auto) : [Fire] | duration 4 | auto-dps 1
+[Log]:: Potion() : Created potion using auto-effect | type: 1 | dur: 4 | dps: 1 | 0x559a5593f480
+[Log]:: set_Obj() : 0x559a5593f480 on {0;2}
+
+  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---
+[ emp ]  [=PLR=]  [ REW ]
+[ emp ]  [ emp ]  [ emp ]
+[ emp ]  [ emp ]  [ emp ]
+  -------------------------------
+
+[Log]:: get_Obj() : 0x559a5593f480
+[Log]:: apply_eff() : New effect applied. Type: 1 | Dur: 4
+[Log]:: remove_Obj() : deleting object on {0;2}
+[Log]:: ~Obj : 0x559a5593f480
+[Log]:: move_Obj() : Object 0x559a5593f430 successfully moved from {0;1} to {0;2}
+[Log]:: [Obj_manager] ---> Phase: Ticking Effects <---
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: modify_soundness() : Delta: -1 | New soundness: 5 | 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: [Obj_manager] ---> Phase: Cleaning Up Dead Objects <---
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+
+  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---
+[ emp ]  [ emp ]  [=PLR=]
+[ emp ]  [ emp ]  [ emp ]
+[ emp ]  [ emp ]  [ emp ]
+  -------------------------------
+
+
+Result Scenario 3:
+Player Position (expected to absorb potion and step on cell {0;2}):
+
+--- Scenario 4: Hit a Chest ---
+[Log]:: Obj() : 0x559a5593f7e0
+[Log]:: Chest() : Created new chest | soundnes 1 | 0x559a5593f7e0
+[Log]:: set_Obj() : 0x559a5593f7e0 on {1;2}
+
+  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---
+[ emp ]  [ emp ]  [=PLR=]
+[ emp ]  [ emp ]  [ CHS ]
+[ emp ]  [ emp ]  [ emp ]
+  -------------------------------
+
+[Log]:: get_Obj() : 0x559a5593f7e0
+[Log]:: [Interaction_sys] Player breaks the chest!
+[Log]:: remove_Obj() : deleting object on {1;2}
+[Log]:: ~Chest() : Destroying chest object | 0x559a5593f7e0
+[Log]:: ~Obj : 0x559a5593f7e0
+[Log]:: Obj() : 0x559a5593f480
+[Log]:: Reward() : Base reward object constructed | 0x559a5593f480
+[Log]:: StatusEffect(Auto) : [Fire] | duration 1 | auto-dps 1
+[Log]:: StatusEffect(Auto) : [Fire] | duration 3 | auto-dps 1
+[Log]:: Potion() : Created potion using auto-effect | type: 1 | dur: 3 | dps: 1 | 0x559a5593f480
+[Log]:: [Obj_Fabric] instantiation of object type ID: 2 | ptr: 0x559a5593f480
+[Log]:: set_Obj() : 0x559a5593f480 on {1;2}
+[Log]:: [Obj_manager] ---> Phase: Ticking Effects <---
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: modify_soundness() : Delta: -1 | New soundness: 4 | 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f480
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: [Obj_manager] ---> Phase: Cleaning Up Dead Objects <---
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f480
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+
+  --- ТЕКУЩЕЕ СОСТОЯНИЕ ПОЛЯ ---
+[ emp ]  [ emp ]  [=PLR=]
+[ emp ]  [ emp ]  [ REW ]
+[ emp ]  [ emp ]  [ emp ]
+  -------------------------------
+
+
+Result Scenario 4:
+Player Position (expected to stay on {0;2}, chest replaced by reward on {1;2}):
+[Log]:: [Obj_manager] Wiping field...
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f430
+[Log]:: remove_Obj() : deleting object on {0;2}
+[Log]:: ~Obj : 0x559a5593f430
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0x559a5593f480
+[Log]:: remove_Obj() : deleting object on {1;2}
+[Log]:: ~Obj : 0x559a5593f480
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+[Log]:: get_Obj() : 0
+
+=== Test 04 Finished Successfully ===

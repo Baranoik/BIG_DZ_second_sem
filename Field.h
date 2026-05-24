@@ -5,24 +5,20 @@
 #include "constans.h"
 #include "Obj.h"
 
-
 //=================================================
 //                                           Field
 
-
 class Field {
  private:
-
   Obj* XYnet[GRID_SIZE_X][GRID_SIZE_Y];
-
-  bool isin(int x, int y) const;
-
 
   Field();
   Field(const Field&) = delete;
   Field& operator=(const Field&) = delete;
 
  public:
+  // Метод перенесен в public, чтобы Interaction_sys мог его вызывать
+  bool isin(int x, int y) const;
 
   static Field& get_instance();
 

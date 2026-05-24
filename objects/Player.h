@@ -19,6 +19,10 @@ class Player : public Obj {
   bool lv_up_qm();
   void lv_up(int lv = 1);
 
+  bool has_weapon() const;
+  int get_weapon_damage() const;
+  void damage_weapon(int amount);
+
   // Геттеры и сеттеры
   int get_hp() const;
   int get_max_hp() const;

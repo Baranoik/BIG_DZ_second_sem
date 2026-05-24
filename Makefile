@@ -18,6 +18,9 @@ Obj_manager.o: ObJ_manager.cpp Obj_manager.h Field.h objects/Obj.h Log_config.h
 Obj_fabric.o: Obj_fabric.cpp Obj_fabric.h Field.h objects/Obj.h objects/Chest.h objects/Reward.h objects/Trap.h objects/Entity.h Log_config.h
 	g++ -I. -Iobjects -c Obj_fabric.cpp -o Obj_fabric.o
 
+Interaction_sys.o: Interaction_sys.cpp Interaction_sys.h Field.h objects/Obj.h Log_config.h
+	g++ -I. -Iobjects -c Interaction_sys.cpp -o Interaction_sys.o
+
 objects/Chest.o: objects/Chest.cpp objects/Chest.h objects/Obj.h Log_config.h
 	g++ -I. -c objects/Chest.cpp -o objects/Chest.o
 
@@ -50,6 +53,9 @@ Obj_manager_loged.o: ObJ_manager.cpp Obj_manager.h Field.h objects/Obj.h Log_con
 Obj_fabric_loged.o: Obj_fabric.cpp Obj_fabric.h Field.h objects/Obj.h objects/Chest.h objects/Reward.h objects/Trap.h objects/Entity.h Log_config.h
 	g++ -I. -Iobjects -c Obj_fabric.cpp -DLOGQM -o Obj_fabric_loged.o
 
+Interaction_sys_loged.o: Interaction_sys.cpp Interaction_sys.h Field.h objects/Obj.h Log_config.h
+	g++ -I. -Iobjects -c Interaction_sys.cpp -DLOGQM -o Interaction_sys_loged.o
+
 objects/Chest_loged.o: objects/Chest.cpp objects/Chest.h objects/Obj.h Log_config.h
 	g++ -I. -c objects/Chest.cpp -DLOGQM -o objects/Chest_loged.o
 
@@ -76,6 +82,9 @@ test_02b.o: tests/test_02b.cpp objects/Obj.h element.h constans.h Log_config.h
 test_03a.o: tests/test_03a.cpp Field.h objects/Obj.h Obj_manager.h Obj_fabric.h Log_config.h
 	g++ -I. -Iobjects -c tests/test_03a.cpp -DLOGQM -o test_03a.o
 
+test_04.o: tests/test_04.cpp Field.h Interaction_sys.h Log_config.h
+	g++ -I. -Iobjects -c tests/test_04.cpp -DLOGQM -o test_04.o
+
 #=================================================
 #								   Линковка тестов
 test_01b: test_01b.o Field_loged.o Obj_loged.o Player_loged.o  Obj_manager_loged.o Obj_fabric_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o
@@ -89,6 +98,9 @@ test_02b: test_02b.o Obj_loged.o
 
 test_03a: test_03a.o Field_loged.o Obj_loged.o Player_loged.o  Obj_manager_loged.o Obj_fabric_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o
 	g++ test_03a.o Field_loged.o Obj_loged.o Player_loged.o  Obj_manager_loged.o Obj_fabric_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o -o test_03a
+
+test_04: test_04.o Field_loged.o Obj_loged.o Player_loged.o Obj_manager_loged.o Obj_fabric_loged.o Interaction_sys_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o
+	g++ test_04.o Field_loged.o Obj_loged.o Player_loged.o Obj_manager_loged.o Obj_fabric_loged.o Interaction_sys_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o -o test_04
 
 #=================================================
 #									  тестирования
@@ -104,7 +116,10 @@ T02b: test_02b
 T03a: test_03a
 	./test_03a
 
+T04: test_04
+	./test_04
+
 #=================================================
 #										   Очистка 
 clean:
-	rm -f *.o objects/*.o test_01b test_02 test_02b test_03a
+	rm -f *.o objects/*.o test_01b test_02 test_02b test_03a test_04
