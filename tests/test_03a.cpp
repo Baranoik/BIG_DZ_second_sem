@@ -18,13 +18,13 @@ int main() {
 
     std::cout << "\n--- Step 1: Spawning Objects via Fabric ---" << std::endl;
     
-    // Заказываем у фабрики разные объекты
+    // ИСПРАВЛЕНО: Заменили ENEMY_ на ENTITY_ в соответствии с вашим enum в Obj_fabric.h
     Obj* chest  = FABRIC.create_object(FABRIC_TYPE::CHEST);
     Obj* coin   = FABRIC.create_object(FABRIC_TYPE::COIN);
     Obj* weapon = FABRIC.create_object(FABRIC_TYPE::WEAPON);
     Obj* spikes = FABRIC.create_object(FABRIC_TYPE::TRAP_SPIKES);
-    Obj* skel   = FABRIC.create_object(FABRIC_TYPE::ENEMY_SKELETON);
-    Obj* skel_p = FABRIC.create_object(FABRIC_TYPE::ENEMY_POTION);
+    Obj* skel   = FABRIC.create_object(FABRIC_TYPE::ENTITY_SKELETON);
+    Obj* skel_p = FABRIC.create_object(FABRIC_TYPE::ENTITY_POTION);
 
     std::cout << "\n--- Step 2: Placing Objects on Field manually ---" << std::endl;
     
@@ -61,8 +61,10 @@ int main() {
     // Проверяем ловушку (активность)
     if (spikes && spikes->get_type() == OBJ_TYPE::TRAP) {
         Spikes* s = dynamic_cast<Spikes*>(spikes);
-        std::cout << "[Test Log] Spikes damage: " << s->get_spikes_damage() 
-                  << " | Active now: " << (s->get_active_status() ? "YES" : "NO") << std::endl;
+        if (s) { // Добавлена проверка на nullptr для безопасности dynamic_cast
+            std::cout << "[Test Log] Spikes damage: " << s->get_spikes_damage() 
+                      << " | Active now: " << (s->get_active_status() ? "YES" : "NO") << std::endl;
+        }
     }
 
     std::cout << "\n--- Step 4: Simulating Turn with Obj_manager ---" << std::endl;
@@ -72,7 +74,9 @@ int main() {
     
     if (spikes && spikes->get_type() == OBJ_TYPE::TRAP) {
         Spikes* s = dynamic_cast<Spikes*>(spikes);
-        std::cout << "[Test Log] Spikes active after 1 tick: " << (s->get_active_status() ? "YES" : "NO") << std::endl;
+        if (s) {
+            std::cout << "[Test Log] Spikes active after 1 tick: " << (s->get_active_status() ? "YES" : "NO") << std::endl;
+        }
     }
 
     std::cout << "\n--- Step 5: Cleaning up whole field ---" << std::endl;

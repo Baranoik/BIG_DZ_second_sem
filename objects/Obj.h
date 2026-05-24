@@ -1,12 +1,12 @@
 #ifndef OBJ_H
 #define OBJ_H
 
-
 #include <vector>
+#include <string>
 #include "constans.h"
 #include "element.h"
 
-enum class OBJ_TYPE{
+enum class OBJ_TYPE {
   OBJ,
   ENTITY,
   TRAP,
@@ -15,25 +15,25 @@ enum class OBJ_TYPE{
   PLAYER
 };
 
-class Obj{
-
+class Obj {
  protected:
   int soundnes;
   std::vector<StatusEffect> eff_bar;
 
-  
-  public:
+ public:
   Obj();
   virtual ~Obj();
-  virtual OBJ_TYPE get_type() const;
   
+  virtual OBJ_TYPE get_type() const;
   virtual bool isdead();
+  
+  virtual int get_soundness() const;
+  virtual void set_soundness(int val);
+  virtual void modify_soundness(int amount); // Отрицательное — урон, положительное — лечение
+
   void apply_eff(const StatusEffect& eff); 
   virtual void tick_eff();
   std::vector<std::string> get_eff_bar() const; 
 };
-
-
-
 
 #endif //OBJ_H

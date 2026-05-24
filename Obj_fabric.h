@@ -15,9 +15,9 @@ enum class FABRIC_TYPE {
     WEAPON,
     TRAP_SPIKES,
     TRAP_FLAMETHROWER,
-    ENEMY_SKELETON,
-    ENEMY_SPEARMAN,
-    ENEMY_POTION
+    ENTITY_SKELETON,
+    ENTITY_SPEARMAN,
+    ENTITY_POTION
 };
 
 class Obj_Fabric {
@@ -29,8 +29,11 @@ private:
 public:
     static Obj_Fabric& get_instance();
 
-    // Чистое создание объекта по типу без привязки к координатам
     Obj* create_object(FABRIC_TYPE type);
+
+    Obj* create_random_reward();
+
+    Obj* create_random_entity();
 };
 
 #define FABRIC Obj_Fabric::get_instance()

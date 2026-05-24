@@ -4,24 +4,23 @@
 
 Player::Player() 
     : Obj(), 
-      current_hp(soundnes), // да я просто сделал болие логичным имя 
-      score(0) 
+      score(0),
+      level(1)
 {
     max_hp = PLAYER_BASE_HP;
-    soundnes = PLAYER_BASE_HP;
-    level = 1;
+    soundnes = PLAYER_BASE_HP; // Напрямую задаем базовое здоровье в soundness
 
     // Инициализируем стартовое оружие игрока [урон, яд, холод, огонь]
     weapon_performance[W_DAMAGE]   = PLAYER_BASE_WEAPON_PERFORMANS;
     weapon_performance[W_POISONED] = 0;
     weapon_performance[W_FROZEN]   = 0;
     weapon_performance[W_BURNING]  = 0;
-    LOG("Plaer() : lv"<< level<<"| hp"<< PLAYER_BASE_HP<<"| damage"<<PLAYER_BASE_WEAPON_PERFORMANS );
+    LOG("Player() : lv " << level << " | hp " << soundnes << " | damage " << PLAYER_BASE_WEAPON_PERFORMANS);
 }
 
 bool Player::lv_up_qm() {    
   int required_score = [&]() {
-    int base = LEVEL_UP_DIFICULTY* (level + 1);
+    int base = LEVEL_UP_DIFICULTY * (level + 1);
     return base * base;
   }();
   LOG("lv_up_qw() : " << (score >= required_score));
@@ -30,22 +29,19 @@ bool Player::lv_up_qm() {
 
 void Player::lv_up(int lv) {
   while (lv_up_qm()) {
-  level++;
-  max_hp ++;
-  current_hp = max_hp; 
-  LOG("lv_up() : lv "<< level<<" | hp " << max_hp);
+    level++;
+    max_hp++;
+    soundnes = max_hp; // Восстанавливаем здоровье до нового максимума
+    LOG("lv_up() : lv " << level << " | hp " << max_hp);
   }
 }
 
 void Player::add_score(int points) { 
     score += points;
-    LOG("add_score() : +"<<points);
+    LOG("add_score() : +" << points);
 }
 
-//----------------------------------------------
-// Геттеры и сеттеры
-//----------------------------------------------
-int Player::get_hp() const { return current_hp; }
+int Player::get_hp() const { return soundnes; }
 int Player::get_max_hp() const { return max_hp; }
 int Player::get_level() const { return level; }
 int Player::get_score() const { return score; }
