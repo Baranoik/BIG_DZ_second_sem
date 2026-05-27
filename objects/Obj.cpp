@@ -46,10 +46,8 @@ void Obj::apply_eff(const StatusEffect& eff) {
 void Obj::tick_eff() {
   for (size_t i = 0; i < eff_bar.size(); ) {
     if (eff_bar[i].damage > 0) {
-      // Наносим урон через инкапсулированный метод (урон — вычитание, передаем со знаком минус)
       modify_soundness(-eff_bar[i].damage);
     } else if (eff_bar[i].damage < 0) {
-      // Если урон отрицательный (регенерация/лечение), инвертируем знак для лечения
       modify_soundness(-eff_bar[i].damage); 
     }
 
@@ -79,9 +77,9 @@ std::vector<std::string> Obj::get_eff_bar() const {
 }
 
 std::vector<ELEMENT_TYPE> Obj::get_status_types() const {
-    std::vector<ELEMENT_TYPE> types;
-    for (const auto& eff : eff_bar) {
-        types.push_back(eff.type);
-    }
-    return types;
+  std::vector<ELEMENT_TYPE> types;
+  for (const auto& eff : eff_bar) {
+    types.push_back(eff.type);
+  }
+  return types;
 }

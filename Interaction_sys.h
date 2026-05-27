@@ -6,21 +6,19 @@
 
 class Interaction_sys {
 private:
-    Interaction_sys() = default;
-    Interaction_sys(const Interaction_sys&) = delete;
-    Interaction_sys& operator=(const Interaction_sys&) = delete;
+  Interaction_sys() = default;
+  Interaction_sys(const Interaction_sys&) = delete;
+  Interaction_sys& operator=(const Interaction_sys&) = delete;
 
-    // Универсальные обработчики, принимающие базовые указатели Obj*
-    void handle_chest(Obj* initiator, Obj* target, int x, int y);
-    void handle_reward(Obj* initiator, Obj* target, int x, int y);
-    void handle_trap(Obj* initiator, Obj* target, int x, int y);
-    void handle_battle(Obj* initiator, Obj* target, int x, int y);
+  void handle_chest(Obj* initiator, Obj* target, int x, int y);
+  void handle_reward(Obj* initiator, Obj* target, int x, int y);
+  void handle_trap(Obj* initiator, Obj* target, int x, int y);
+  void handle_battle(Obj* initiator, Obj* target, int x, int y);
 
 public:
-    static Interaction_sys& get_instance();
+  static Interaction_sys& get_instance();
 
-    // Запрос на перемещение / действие объекта initiator на клетку (to_x, to_y)
-    void process_step(Obj* initiator, int from_x, int from_y, int to_x, int to_y);
+  void process_step(Obj* initiator, int from_x, int from_y, int to_x, int to_y);
 };
 
 #define INTERACT Interaction_sys::get_instance()

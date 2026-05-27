@@ -90,55 +90,51 @@ int Obj_manager::count_empty_cells() const {
 }
 
 void Obj_manager::check_and_refill_field() {
-    int empty_count = count_empty_cells();
-    if (empty_count <= 3) {
-        return; 
-    }
+  int empty_count = count_empty_cells();
+  if (empty_count <= 3) {
+    return; 
+  }
 
-    LOG("[Obj_manager] Empty cells count: " << empty_count << " (> 3). Starting random refill phase!");
+  LOG("[Obj_manager] Empty cells count: " << empty_count << " (> 3). Starting random refill phase!");
 
-    std::random_device rd;
-    std::default_random_engine gen(rd());
+  std::random_device rd;
+  std::default_random_engine gen(rd());
     
-    std::discrete_distribution<int> spawn_dist({60, 40});
-    std::discrete_distribution<int> type_dist({45, 35, 20});
+  std::discrete_distribution<int> spawn_dist({60, 40});
+  std::discrete_distribution<int> type_dist({45, 35, 20});
 
-    // Чистая начинка C++: храним координаты x и y как std::pair
-    std::vector<std::pair<int, int>> empty_cells;
+  std::vector<std::pair<int, int>> empty_cells;
 
-    for (int x = 0; x < GRID_SIZE_X; ++x) {
-        for (int y = 0; y < GRID_SIZE_Y; ++y) {
-            if (FIELD.get_Obj(x, y) == nullptr) {
-                // first — это x, second — это y
-                empty_cells.push_back(std::make_pair(x, y));
-            }
-        }
+  for (int x = 0; x < GRID_SIZE_X; ++x) {
+    for (int y = 0; y < GRID_SIZE_Y; ++y) {
+      if (FIELD.get_Obj(x, y) == nullptr) {
+        empty_cells.push_back(std::make_pair(x, y));
+      }
+    }
+  }
+
+  for (const auto& cell : empty_cells) {
+      
+    if (spawn_dist(gen) == 0) {
+      continue; 
     }
 
-    // Проходим по вектору пар координат
-    for (const auto& cell : empty_cells) {
-        
-        if (spawn_dist(gen) == 0) {
-            continue; 
-        }
+    int type_roll = type_dist(gen);
+    Obj* new_obj = nullptr;
 
-        int type_roll = type_dist(gen);
-        Obj* new_obj = nullptr;
-
-        if (type_roll == 0) {
-            new_obj = FABRIC.create_random_reward();
-        } 
-        else if (type_roll == 1) {
-            new_obj = FABRIC.create_random_entity();
-        } 
-        else {
-            new_obj = FABRIC.create_random_trap(gen); 
-        }
-
-        if (new_obj != nullptr) {
-            // cell.first — это сохраненный x, cell.second — это y
-            FIELD.set_Obj(cell.first, cell.second, new_obj);
-            LOG("[Obj_manager] Spawned random obj on empty cell {" << cell.first << ";" << cell.second << "}");
-        }
+    if (type_roll == 0) {
+      new_obj = FABRIC.create_random_reward();
+    } 
+    else if (type_roll == 1) {
+      new_obj = FABRIC.create_random_entity();
+    } 
+    else {
+      new_obj = FABRIC.create_random_trap(gen); 
     }
+
+    if (new_obj != nullptr) {
+      FIELD.set_Obj(cell.first, cell.second, new_obj);
+      LOG("[Obj_manager] Spawned random obj on empty cell {" << cell.first << ";" << cell.second << "}");
+    }
+  }
 }

@@ -4,9 +4,8 @@
 
 Player::Player() : Obj(), score(0), level(1){
   max_hp = PLAYER_BASE_HP;
-  soundnes = PLAYER_BASE_HP; // Напрямую задаем базовое здоровье в soundness
+  soundnes = PLAYER_BASE_HP; 
 
-  // Инициализируем стартовое оружие игрока [урон, яд, холод, огонь]
   weapon_performance[W_DAMAGE]   = PLAYER_BASE_WEAPON_PERFORMANS;
   weapon_performance[W_POISONED] = 0;
   weapon_performance[W_FROZEN]   = 0;
@@ -27,7 +26,7 @@ void Player::lv_up() {
   while (lv_up_qm()) {
     level++;
     max_hp++;
-    soundnes = max_hp; // Восстанавливаем здоровье до нового максимума
+    soundnes = max_hp;
     LOG("lv_up() : lv " << level << " | hp " << max_hp);
   }
 }
@@ -66,20 +65,17 @@ void Player::damage_weapon(int amount) {
 
 
 void Player::equip_weapon(int base_damage, ELEMENT_TYPE element, int element_duration) {
-  // Задаем новый базовый урон оружия
   weapon_performance[W_DAMAGE] = base_damage;
 
-  // Сбрасываем старые стихийные модификаторы
   weapon_performance[W_POISONED] = 0;
   weapon_performance[W_FROZEN]   = 0;
   weapon_performance[W_BURNING]  = 0;
 
-  // Включаем нужный модификатор в зависимости от стихии нового оружия
   switch (element) {
     case ELEMENT_TYPE::POISON:      weapon_performance[W_POISONED] = element_duration; break;
     case ELEMENT_TYPE::ICE:         weapon_performance[W_FROZEN]   = element_duration; break;
     case ELEMENT_TYPE::FIRE:        weapon_performance[W_BURNING]  = element_duration; break;
-    default: break; // ELEMENT_TYPE::NONE или REGENRATION ничего не включают
+    default: break; 
   }
 
   LOG("[Player] Equipped new weapon! Damage: " << base_damage << " | Element: " << int(element));

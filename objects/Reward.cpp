@@ -96,11 +96,9 @@ Weapon::Weapon()
      default: elemental_type = ELEMENT_TYPE::NONE; break;
     }
         
-    // Рандомизируем длительность эффекта на оружии (например, от 2 до 4 ходов)
     std::uniform_int_distribution<int> eff_dur_dist(2, 4);
     int random_duration = eff_dur_dist(reward_gen);
        
-    // Автоматически создаем эффект по правилам StatusEffect
     weapon_effect = StatusEffect(elemental_type, random_duration);
     }
 

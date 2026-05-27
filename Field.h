@@ -17,7 +17,6 @@ class Field {
   Field& operator=(const Field&) = delete;
 
  public:
-  // Метод перенесен в public, чтобы Interaction_sys мог его вызывать
   bool isin(int x, int y) const;
 
   static Field& get_instance();

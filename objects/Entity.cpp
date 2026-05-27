@@ -31,7 +31,7 @@ StatusEffect Enemy::get_attack_effect() const {
 }
 
 //-------------------------------------------------
-//                                   Skeleton Mobb
+//                                   Skeletn
 //-------------------------------------------------
 Skeleton::Skeleton() : Enemy() {
   std::random_device enemy_rd;
@@ -59,7 +59,7 @@ ENEMY_TYPE Skeleton::get_enemy_type() const {
 }
 
 //-------------------------------------------------
-//                            Skeleton Spearman Mobb
+//                            Skelet Spear
 //-------------------------------------------------
 SkeletonSpearman::SkeletonSpearman() : Enemy() {
   std::random_device enemy_rd;
@@ -88,7 +88,7 @@ ENEMY_TYPE SkeletonSpearman::get_enemy_type() const {
 }
 
 //-------------------------------------------------
-//                              Skeleton Potion Mobb
+//                              Skelet Potion 
 //-------------------------------------------------
 SkeletonPotion::SkeletonPotion() : Enemy() {
   std::random_device enemy_rd;

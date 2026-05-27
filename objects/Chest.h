@@ -5,10 +5,10 @@
 
 class Chest : public Obj {
 public:
-    Chest();
-    ~Chest() override;
+  Chest();
+  ~Chest() override;
 
-    OBJ_TYPE get_type() const override;
+  OBJ_TYPE get_type() const override;
 };
 
 #endif // CHEST_H

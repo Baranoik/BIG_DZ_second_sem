@@ -2,14 +2,12 @@
 #include <optional>
 
 Command Key_input::get_input(sf::RenderWindow& window) {
-  // Опрашиваем события окна в синтаксисе SFML 3
   while (const std::optional<sf::Event> event = window.pollEvent()) {
     
     if (event->is<sf::Event::Closed>()) {
       window.close();
     }
     
-    // Считываем нажатие строго ОДИН раз за клик
     if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
       switch (keyPressed->code) {
         case sf::Keyboard::Key::W:       return Command::MOVE_UP;

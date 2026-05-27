@@ -50,8 +50,8 @@ public:
 //                                 Weapon Reward
 class Weapon : public Reward {
 private:
-  ELEMENT_TYPE elemental_type; // Тип встроенной стихии
-  StatusEffect weapon_effect;  // Сам эффект, который нанесет оружие
+  ELEMENT_TYPE elemental_type; 
+  StatusEffect weapon_effect;  
 
 public:
   Weapon();

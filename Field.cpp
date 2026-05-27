@@ -57,7 +57,6 @@ void Field::rm_Obj(int x, int y) {
   delete target; 
 }
 
-// В конец файла Field.cpp
 void Field::move_Obj(int from_x, int from_y, int to_x, int to_y) {
   if (!isin(from_x, from_y)) {
     ERROR("move_Obj() : Source coordinates {" << from_x << ";" << from_y << "} out of bounds!");
@@ -94,7 +93,6 @@ void Field::print_field() const {
       if (XYnet[x][y] == nullptr) {
         std::cout << "[ emp ]  "; 
       } else {
-        // Проверяем тип объекта и выводим красивый маркер
         switch (XYnet[x][y]->get_type()) {
           case OBJ_TYPE::PLAYER: std::cout << "[=PLR=]  "; break;
           case OBJ_TYPE::CHEST:  std::cout << "[ CHS ]  "; break;

@@ -18,13 +18,11 @@ struct StatusEffect {
   int duration;
   int damage;
 
-  // 1. Конструктор для ПОЛНОЙ ручной настройки (убрали = 0, теперь тут строго 3 параметра!)
   StatusEffect(ELEMENT_TYPE t, int dur, int dps) {
     type = t; duration = dur; damage = dps;
     LOG("StatusEffect(Full) : " << this->get_title() << " | duration " << dur << " | dps " << dps);
   }
 
-  // 2. Конструктор для АВТОМАТИЧЕСКОЙ настройки по типу (2 параметра)
   StatusEffect(ELEMENT_TYPE t, int dur) {
     type = t;
     duration = dur;
@@ -37,10 +35,10 @@ struct StatusEffect {
         damage = BURN_DAMAGE;
         break;
       case ELEMENT_TYPE::REGENRATION:
-        damage = -1; // Лечение
+        damage = -1;
         break;
       default:
-        damage = 0;  // Лед или NONE не наносят урон напрямую
+        damage = 0; 
         break;
     }
     LOG("StatusEffect(Auto) : " << this->get_title() << " | duration " << dur << " | auto-dps " << damage);
