@@ -44,8 +44,8 @@ Skeleton::Skeleton() : Enemy() {
   if (chance_dist(enemy_gen) <= 40) {
     drop_loot = {true, OBJ_TYPE::REVARD};
   }
+  score_bonus = soundnes; 
 
-  // ИСПРАВЛЕНО: Логируем лут красиво и только если он реально есть
   if (drop_loot.has_loot) {
     LOG("Skeleton() : Spawned | soundnes (HP): " << soundnes 
       << " | loot: [" << get_loot_type_name(drop_loot.loot_type) << "] | " << this);
@@ -73,7 +73,8 @@ SkeletonSpearman::SkeletonSpearman() : Enemy() {
     drop_loot = {true, OBJ_TYPE::CHEST};
   }
 
-  // ИСПРАВЛЕНО: Логируем лут красиво и только если он реально есть
+  score_bonus = soundnes; 
+
   if (drop_loot.has_loot) {
     LOG("SkeletonSpearman() : Spawned | soundnes (HP): " << soundnes 
       << " | loot: [" << get_loot_type_name(drop_loot.loot_type) << "] | " << this);
@@ -108,8 +109,8 @@ SkeletonPotion::SkeletonPotion() : Enemy() {
   if (chance_dist(enemy_gen) <= 60) {
     drop_loot = {true, OBJ_TYPE::REVARD};
   }
+  score_bonus = soundnes; 
 
-  // ИСПРАВЛЕНО: Логируем лут красиво и только если он реально есть
   if (drop_loot.has_loot) {
     LOG("SkeletonPotion() : Spawned | soundnes (HP): " << soundnes 
       << " | element: " << int(potion_element) 

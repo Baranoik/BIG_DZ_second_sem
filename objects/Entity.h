@@ -20,8 +20,9 @@ enum class ENEMY_TYPE {
 class Enemy : public Obj {
 protected:
     LootInfo drop_loot; // Данные о луте, который останется после смерти
-
 public:
+
+    int score_bonus;
     Enemy();
     ~Enemy() override = default;
 

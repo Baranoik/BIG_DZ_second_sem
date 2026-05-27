@@ -2,15 +2,14 @@
 #include <optional>
 
 Command Key_input::get_input(sf::RenderWindow& window) {
-  // В SFML 3 метод pollEvent() не принимает аргументов и возвращает std::optional
+  // Опрашиваем события окна в синтаксисе SFML 3
   while (const std::optional<sf::Event> event = window.pollEvent()) {
     
-    // Проверка закрытия окна через метод ->is
     if (event->is<sf::Event::Closed>()) {
       window.close();
     }
     
-    // Проверка нажатия клавиши и извлечение её кода
+    // Считываем нажатие строго ОДИН раз за клик
     if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
       switch (keyPressed->code) {
         case sf::Keyboard::Key::W:       return Command::MOVE_UP;
@@ -23,5 +22,5 @@ Command Key_input::get_input(sf::RenderWindow& window) {
       }
     }
   }
-  return Command::GET_INFO; 
+  return Command::NONE; 
 }

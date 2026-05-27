@@ -6,6 +6,7 @@
 #include "Reward.h"
 #include "Trap.h"
 #include "Entity.h"
+#include <random>
 
 enum class FABRIC_TYPE {
     CHEST,
@@ -34,6 +35,8 @@ public:
     Obj* create_random_reward();
 
     Obj* create_random_entity();
+
+    Obj* create_random_trap(std::default_random_engine& gen);
 };
 
 #define FABRIC Obj_Fabric::get_instance()

@@ -143,12 +143,12 @@ void Interaction_sys::handle_battle(Obj* initiator, Obj* target, int x, int y) {
 
       if (!enemy->isdead()) {
         int enemy_counter_dmg = enemy->get_soundness();
-        player->modify_soundness(-enemy_counter_dmg);
+        player->damage_weapon(enemy_counter_dmg); 
         player->apply_eff(enemy->get_attack_effect());
-        LOG("[Battle] Enemy counters Player! Dealt: " << enemy_counter_dmg);
+        LOG("[Battle] Enemy counters Player! Shielded by weapon. Weapon lost: " << enemy_counter_dmg);
       } else {
         LOG("[Battle] Enemy killed by weapon.");
-        
+        player->add_score(enemy->score_bonus);
         LootInfo loot = enemy->get_loot_info();
         if (loot.has_loot) {
           LOG("[Battle] Enemy drop destroyed (Spawn disabled by rules).");
@@ -171,6 +171,7 @@ void Interaction_sys::handle_battle(Obj* initiator, Obj* target, int x, int y) {
         LOG("[Battle] Enemy survives and infects Player with status effects!");
       } else {
         LOG("[Battle] Enemy killed by hands. No loot spawned.");
+        player->add_score(enemy->score_bonus);
         int from_x = -1, from_y = -1;
         for (int gx = 0; gx < GRID_SIZE_X; ++gx) {
           for (int gy = 0; gy < GRID_SIZE_Y; ++gy) {

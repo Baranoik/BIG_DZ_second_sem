@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 enum class Command {
+    NONE,
     GET_INFO,
     MOVE_UP,
     MOVE_DOWN,
@@ -14,8 +15,7 @@ enum class Command {
 
 class Key_input {
 public:
-    // Обрабатывает события и возвращает команду, которую надо выполнить.
     Command get_input(sf::RenderWindow& window);
 };
 
-#endif //INPUT_H
+#endif // INPUT_H

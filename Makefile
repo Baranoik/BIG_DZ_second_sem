@@ -35,6 +35,10 @@ objects/Entity.o: objects/Entity.cpp objects/Entity.h objects/Obj.h element.h Lo
 
 Render.o: Render.cpp Render.h Field.h objects/Player.h objects/Obj.h Log_config.h
 	g++ -I. -Iobjects -c Render.cpp -o Render.o
+
+main.o: main.cpp Field.h input.h Interaction_sys.h Obj_manager.h Obj_fabric.h objects/Player.h Render.h Log_config.h
+	g++ -I. -Iobjects -c main.cpp -o main.o
+
 #=================================================
 #								 Сборка лог-файлов
 Field_loged.o: Field.cpp Field.h constans.h objects/Obj.h Log_config.h
@@ -72,6 +76,10 @@ objects/Entity_loged.o: objects/Entity.cpp objects/Entity.h objects/Obj.h elemen
 
 Render_loged.o: Render.cpp Render.h Field.h objects/Player.h objects/Obj.h Log_config.h
 	g++ -I. -Iobjects -c Render.cpp -DLOGQM -o Render_loged.o
+
+main_loged.o: main.cpp Field.h input.h Interaction_sys.h Obj_manager.h Obj_fabric.h objects/Player.h Render.h Log_config.h
+	g++ -I. -Iobjects -c main.cpp -DLOGQM -o main_loged.o
+
 #=================================================
 # 									 Сборка тестов
 test_01b.o: tests/test_01b.cpp Field.h objects/Obj.h objects/Player.h Obj_manager.h Obj_fabric.h
@@ -108,8 +116,16 @@ test_03a: test_03a.o Field_loged.o Obj_loged.o Player_loged.o  Obj_manager_loged
 test_04: test_04.o Field_loged.o Obj_loged.o Player_loged.o Obj_manager_loged.o Obj_fabric_loged.o Interaction_sys_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o
 	g++ test_04.o Field_loged.o Obj_loged.o Player_loged.o Obj_manager_loged.o Obj_fabric_loged.o Interaction_sys_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o -o test_04
 
-test_04a: test_04a.o Field_loged.o Obj_loged.o Player_loged.o input_loged.o Obj_manager_loged.o Obj_fabric_loged.o Interaction_sys_loged.o Render_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o
-	g++ test_04a.o Field_loged.o Obj_loged.o Player_loged.o input_loged.o Obj_manager_loged.o Obj_fabric_loged.o Interaction_sys_loged.o Render_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o -o test_04a -lsfml-graphics -lsfml-window -lsfml-system
+test_04a: test_04a.o Field.o Obj.o Player.o input.o Obj_manager.o Obj_fabric.o Interaction_sys.o Render.o objects/Chest.o objects/Reward.o objects/Trap.o objects/Entity.o
+	g++ test_04a.o Field.o Obj.o Player.o input.o Obj_manager.o Obj_fabric.o Interaction_sys.o Render.o objects/Chest.o objects/Reward.o objects/Trap.o objects/Entity.o -o test_04a -lsfml-graphics -lsfml-window -lsfml-system
+#=================================================
+#							        Линьковка игры 
+game: main.o Field.o Obj.o Player.o input.o Obj_manager.o Obj_fabric.o Interaction_sys.o Render.o objects/Chest.o objects/Reward.o objects/Trap.o objects/Entity.o
+	g++ main.o Field.o Obj.o Player.o input.o Obj_manager.o Obj_fabric.o Interaction_sys.o Render.o objects/Chest.o objects/Reward.o objects/Trap.o objects/Entity.o -o game -lsfml-graphics -lsfml-window -lsfml-system
+
+game_loged: main_loged.o Field_loged.o Obj_loged.o Player_loged.o input_loged.o Obj_manager_loged.o Obj_fabric_loged.o Interaction_sys_loged.o Render_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o
+	g++ main_loged.o Field_loged.o Obj_loged.o Player_loged.o input_loged.o Obj_manager_loged.o Obj_fabric_loged.o Interaction_sys_loged.o Render_loged.o objects/Chest_loged.o objects/Reward_loged.o objects/Trap_loged.o objects/Entity_loged.o -o game_loged -lsfml-graphics -lsfml-window -lsfml-system
+
 #=================================================
 #									  тестирования
 T01b: test_01b
@@ -129,6 +145,16 @@ T04: test_04
 
 T04a: test_04a
 	./test_04a
+
+
+#=================================================
+#										Сорка игры 
+run: game
+	./game
+
+run_loged: game_loged
+	./game_loged
+
 #=================================================
 #										   Очистка 
 clean:

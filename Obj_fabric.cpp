@@ -68,3 +68,10 @@ Obj* Obj_Fabric::create_random_entity() {
 
   return create_object(selected_type);
 }
+
+Obj* Obj_Fabric::create_random_trap(std::default_random_engine& gen) {
+    std::uniform_int_distribution<int> trap_roll(0, 1);
+    FABRIC_TYPE type = (trap_roll(gen) == 0) ? FABRIC_TYPE::TRAP_SPIKES : FABRIC_TYPE::TRAP_FLAMETHROWER;
+    return create_object(type);
+}
+
