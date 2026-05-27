@@ -52,7 +52,7 @@ struct StatusEffect {
       case ELEMENT_TYPE::FIRE:        return "[Fire]";
       case ELEMENT_TYPE::ICE:         return "[Ice]";
       case ELEMENT_TYPE::POISON:      return "[Poison]";
-      case ELEMENT_TYPE::REGENRATION: return "[Regeneration]";
+      case ELEMENT_TYPE::REGENRATION: return "[Regen]";
       default:                        ERROR("get_title() : " << "indefined effect please chek : [element.h] and make shure get_title() got instruction for all  ELEMENT_TYPE");
     }
   }

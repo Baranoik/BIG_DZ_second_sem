@@ -77,3 +77,11 @@ std::vector<std::string> Obj::get_eff_bar() const {
   }
   return mesege;
 }
+
+std::vector<ELEMENT_TYPE> Obj::get_status_types() const {
+    std::vector<ELEMENT_TYPE> types;
+    for (const auto& eff : eff_bar) {
+        types.push_back(eff.type);
+    }
+    return types;
+}

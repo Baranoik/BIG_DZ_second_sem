@@ -17,12 +17,15 @@ class Player : public Obj {
 
   // Уникальные методы игрока
   bool lv_up_qm();
-  void lv_up(int lv = 1);
+  void lv_up();
 
   bool has_weapon() const;
   int get_weapon_damage() const;
   void damage_weapon(int amount);
 
+  void equip_weapon(int base_damage, ELEMENT_TYPE element, int element_duration);
+
+  
   // Геттеры и сеттеры
   int get_hp() const;
   int get_max_hp() const;

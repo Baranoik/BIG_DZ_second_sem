@@ -78,12 +78,13 @@ void Interaction_sys::handle_reward(Obj* initiator, Obj* target, int x, int y) {
     }
     case REWARD_TYPE::WEAPON: {
       Weapon* w = dynamic_cast<Weapon*>(reward);
-      if (w->get_elemental_type() != ELEMENT_TYPE::NONE) {
-        player->apply_eff(w->get_weapon_effect());
+      if (w) {
+        int duration = w->get_weapon_effect().duration;
+        
+        player->equip_weapon(w->get_damage_performance(), w->get_elemental_type(), duration);
       }
-      player->add_score(w->get_damage_performance());
       break;
-    }
+    } 
   }
   FIELD.rm_Obj(x, y);
 }
@@ -94,16 +95,33 @@ void Interaction_sys::handle_trap(Obj* initiator, Obj* target, int x, int y) {
 
   LOG("[Interaction_sys] Object " << initiator << " triggered an active trap!");
 
+  bool should_remove = false;
+
   if (trap->get_trap_type() == TRAP_TYPE::SPIKES) {
     Spikes* s = dynamic_cast<Spikes*>(trap);
-    initiator->modify_soundness(-s->get_spikes_damage());
+    if (s) {
+      initiator->modify_soundness(-s->get_spikes_damage());
+      should_remove = true; // Шипы одноразовые — взвелись и исчезли
+    }
   } 
   else if (trap->get_trap_type() == TRAP_TYPE::FLAMETHROWER) {
     Flamethrower* f = dynamic_cast<Flamethrower*>(trap);
-    initiator->apply_eff(f->get_trigger_effect());
-    f->reduce_charges();
+    if (f) {
+      initiator->apply_eff(f->get_trigger_effect());
+      f->reduce_charges(); // Тратим один заряд (для внутренней логики объекта)
+      
+      LOG("[Interaction_sys] Flamethrower triggered! Removing after first use.");
+      should_remove = true; // ИСПРАВЛЕНО: Огнемет теперь тоже удаляется сразу
+    }
+  }
+
+  // Если ловушка отработала свой ресурс, безопасно удаляем её с поля
+  if (should_remove) {
+    LOG("[Interaction_sys] Removing spent trap from cell {" << x << ";" << y << "}");
+    FIELD.rm_Obj(x, y);
   }
 }
+
 
 void Interaction_sys::handle_battle(Obj* initiator, Obj* target, int x, int y) {
   if (initiator->get_type() == OBJ_TYPE::PLAYER && target->get_type() == OBJ_TYPE::ENTITY) {

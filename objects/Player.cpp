@@ -2,20 +2,16 @@
 #include "Log_config.h"
 #include "constans.h"
 
-Player::Player() 
-    : Obj(), 
-      score(0),
-      level(1)
-{
-    max_hp = PLAYER_BASE_HP;
-    soundnes = PLAYER_BASE_HP; // Напрямую задаем базовое здоровье в soundness
+Player::Player() : Obj(), score(0), level(1){
+  max_hp = PLAYER_BASE_HP;
+  soundnes = PLAYER_BASE_HP; // Напрямую задаем базовое здоровье в soundness
 
-    // Инициализируем стартовое оружие игрока [урон, яд, холод, огонь]
-    weapon_performance[W_DAMAGE]   = PLAYER_BASE_WEAPON_PERFORMANS;
-    weapon_performance[W_POISONED] = 0;
-    weapon_performance[W_FROZEN]   = 0;
-    weapon_performance[W_BURNING]  = 0;
-    LOG("Player() : lv " << level << " | hp " << soundnes << " | damage " << PLAYER_BASE_WEAPON_PERFORMANS);
+  // Инициализируем стартовое оружие игрока [урон, яд, холод, огонь]
+  weapon_performance[W_DAMAGE]   = PLAYER_BASE_WEAPON_PERFORMANS;
+  weapon_performance[W_POISONED] = 0;
+  weapon_performance[W_FROZEN]   = 0;
+  weapon_performance[W_BURNING]  = 0;
+  LOG("Player() : lv " << level << " | hp " << soundnes << " | damage " << PLAYER_BASE_WEAPON_PERFORMANS);
 }
 
 bool Player::lv_up_qm() {    
@@ -27,7 +23,7 @@ bool Player::lv_up_qm() {
   return score >= required_score;
 }
 
-void Player::lv_up(int lv) {
+void Player::lv_up() {
   while (lv_up_qm()) {
     level++;
     max_hp++;
@@ -37,8 +33,8 @@ void Player::lv_up(int lv) {
 }
 
 void Player::add_score(int points) { 
-    score += points;
-    LOG("add_score() : +" << points);
+  score += points;
+  LOG("add_score() : +" << points);
 }
 
 int Player::get_hp() const { return soundnes; }
@@ -51,19 +47,40 @@ OBJ_TYPE Player::get_type() const {
 }
 
 bool Player::has_weapon() const {
-    return weapon_performance[W_DAMAGE] > 0;
+  return weapon_performance[W_DAMAGE] > 0;
 }
 
 int Player::get_weapon_damage() const {
-    return weapon_performance[W_DAMAGE];
+  return weapon_performance[W_DAMAGE];
 }
 
 void Player::damage_weapon(int amount) {
-    weapon_performance[W_DAMAGE] -= amount;
-    if (weapon_performance[W_DAMAGE] < 0) {
-        weapon_performance[W_DAMAGE] = 0;
-    }
-    if (weapon_performance[W_DAMAGE] == 0) {
-        LOG("[Player] Weapon broke! Performance reached 0.");
-    }
+  weapon_performance[W_DAMAGE] -= amount;
+  if (weapon_performance[W_DAMAGE] < 0) {
+    weapon_performance[W_DAMAGE] = 0;
+  }
+  if (weapon_performance[W_DAMAGE] == 0) {
+    LOG("[Player] Weapon broke! Performance reached 0.");
+  }
+}
+
+
+void Player::equip_weapon(int base_damage, ELEMENT_TYPE element, int element_duration) {
+  // Задаем новый базовый урон оружия
+  weapon_performance[W_DAMAGE] = base_damage;
+
+  // Сбрасываем старые стихийные модификаторы
+  weapon_performance[W_POISONED] = 0;
+  weapon_performance[W_FROZEN]   = 0;
+  weapon_performance[W_BURNING]  = 0;
+
+  // Включаем нужный модификатор в зависимости от стихии нового оружия
+  switch (element) {
+    case ELEMENT_TYPE::POISON:      weapon_performance[W_POISONED] = element_duration; break;
+    case ELEMENT_TYPE::ICE:         weapon_performance[W_FROZEN]   = element_duration; break;
+    case ELEMENT_TYPE::FIRE:        weapon_performance[W_BURNING]  = element_duration; break;
+    default: break; // ELEMENT_TYPE::NONE или REGENRATION ничего не включают
+  }
+
+  LOG("[Player] Equipped new weapon! Damage: " << base_damage << " | Element: " << int(element));
 }

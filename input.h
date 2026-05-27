@@ -18,4 +18,4 @@ public:
     Command get_input(sf::RenderWindow& window);
 };
 
-#endif INPUT_H
+#endif //INPUT_H

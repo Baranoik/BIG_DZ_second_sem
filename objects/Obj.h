@@ -29,7 +29,9 @@ class Obj {
   
   virtual int get_soundness() const;
   virtual void set_soundness(int val);
-  virtual void modify_soundness(int amount); // Отрицательное — урон, положительное — лечение
+  virtual void modify_soundness(int amount);
+
+  std::vector<ELEMENT_TYPE> get_status_types() const;
 
   void apply_eff(const StatusEffect& eff); 
   virtual void tick_eff();

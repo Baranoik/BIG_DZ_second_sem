@@ -36,7 +36,7 @@ Obj* Field::get_Obj(int x, int y) const {
     LOG("get_Obj() : no Obj");
     return nullptr;
   }
-  LOG("get_Obj() : "<<XYnet[x][y]);
+//  LOG("get_Obj() : "<<XYnet[x][y]); - логи иначе не читаемы
   return XYnet[x][y];
 }
 
